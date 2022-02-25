@@ -63,25 +63,25 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "on resume occurred");
+        Log.d(TAG, "HomeFragment on resume occurred");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "on pause occurred");
+        Log.d(TAG, "HomeFragment on pause occurred");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "on stop occurred");
+        Log.d(TAG, "HomeFragment on stop occurred");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "on destroy occurred");
+        Log.d(TAG, "HomeFragment on destroy occurred");
     }
 
 }

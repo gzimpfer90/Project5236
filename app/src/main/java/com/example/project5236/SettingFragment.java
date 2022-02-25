@@ -50,25 +50,25 @@ public class SettingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "on resume occurred");
+        Log.d(TAG, "SettingFragment on resume occurred");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "on pause occurred");
+        Log.d(TAG, "SettingFragment on pause occurred");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "on stop occurred");
+        Log.d(TAG, "SettingFragment on stop occurred");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "on destroy occurred");
+        Log.d(TAG, "SettingFragment on destroy occurred");
     }
 
 }
