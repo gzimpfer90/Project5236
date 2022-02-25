@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">Project5236</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- Strings used on the home page (fragment 1) -->
+
+    <string name="home_label">WELCOME TO GAME NAME</string>
+    <string name="play">PLAY</string>
+    <string name="level_select">LEVEL SELECT</string>
+    <string name="high_scores">HIGH SCORES</string>
+    <string name="settings">SETTINGS</string>
+
+    <string name="back">BACK</string>
+
+
 </resources>
