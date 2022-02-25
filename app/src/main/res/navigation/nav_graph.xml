@@ -14,15 +14,41 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@+id/LevelSelectFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_HighScoresFragment"
+            app:destination="@+id/HighScoresFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_SettingFragment"
+            app:destination="@+id/SettingFragment" />
     </fragment>
     <fragment
         android:id="@+id/LevelSelectFragment"
         android:name="com.example.project5236.LevelSelectFragment"
-        android:label="@string/home_label"
+        android:label="@string/level_select"
         tools:layout="@layout/fragment_second">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/HighScoresFragment"
+        android:name="com.example.project5236.HighScoresFragment"
+        android:label="@string/high_scores"
+        tools:layout="@layout/fragment_high_scores">
+
+        <action
+            android:id="@+id/action_HighScoresFragment_to_FirstFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SettingFragment"
+        android:name="com.example.project5236.SettingFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_setting">
+
+        <action
+            android:id="@+id/action_SettingFragment_to_FirstFragment"
             app:destination="@id/HomeFragment" />
     </fragment>
 </navigation>
