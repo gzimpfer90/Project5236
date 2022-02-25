@@ -1,6 +1,7 @@
 package com.example.project5236;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.example.project5236.databinding.FragmentFirstBinding;
 public class HomeFragment extends Fragment {
 
     private FragmentFirstBinding binding;
+    private static final String TAG = "Testing: ";
 
     @Override
     public View onCreateView(
@@ -56,6 +58,30 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "on resume occurred");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "on pause occurred");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "on stop occurred");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "on destroy occurred");
     }
 
 }
