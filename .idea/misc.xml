@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/activity_play.xml" value="0.1" />
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_first.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_play.xml" value="0.25" />
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_play_crud.xml" value="0.25" />
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_second.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/activity_main.xml" value="0.11979166666666667" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/content_main.xml" value="0.15443840579710144" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_first.xml" value="0.15443840579710144" />

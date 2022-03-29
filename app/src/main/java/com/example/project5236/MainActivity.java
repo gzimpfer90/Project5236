@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "HSFragment on start occurred");
+        Log.d(TAG, "MainActivity on start occurred");
     }
 
     @Override

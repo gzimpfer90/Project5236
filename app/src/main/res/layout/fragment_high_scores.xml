@@ -10,10 +10,13 @@
         android:id="@+id/textview_high_scores"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="32dp"
+        android:text="Level 1"
         app:layout_constraintBottom_toTopOf="@id/button_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/button_back"

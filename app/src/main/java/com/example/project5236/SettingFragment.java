@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.project5236.databinding.FragmentSecondBinding;
 import com.example.project5236.databinding.FragmentSettingBinding;
 
 public class SettingFragment extends Fragment {
