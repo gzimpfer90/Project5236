@@ -13,15 +13,10 @@ public class GameActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "ReachedOnCreate");
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "Passed Super");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(new GameView(this));
     }
-
-
-
 
 }

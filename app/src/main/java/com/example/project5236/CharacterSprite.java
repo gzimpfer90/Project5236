@@ -6,16 +6,22 @@ import android.graphics.Canvas;
 public class CharacterSprite {
 
     private Bitmap image;
+    public float x,y;
+    public float xVelocity = 0.01f;
+    public float yVelocity = 0.01f;
 
     public CharacterSprite(Bitmap bmp) {
         image = bmp;
+        x = 150;
+        y = 150;
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, 100, 100, null);
+        canvas.drawBitmap(image, x - 50, y - 50, null);
     }
 
-    public void update() {
-
+    public void update(float touchX, float touchY) {
+        x += (touchX - x) * xVelocity;
+        y += (touchY - y) * yVelocity;
     }
 }

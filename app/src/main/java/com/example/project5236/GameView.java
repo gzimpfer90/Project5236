@@ -1,8 +1,12 @@
 package com.example.project5236;
 
+import static java.lang.String.valueOf;
+
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -10,8 +14,12 @@ import androidx.annotation.NonNull;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
+    private String TAG = "Touch";
     private MainThread thread;
     private CharacterSprite characterSprite;
+    private boolean touching = true;
+    private float touchX = 150;
+    private float touchY = 150;
     public GameView(Context context) {
         super(context);
 
@@ -46,8 +54,31 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int index = event.getActionIndex();
+        int action = event.getActionMasked();
+        int pointerId = event.getPointerId(index);
+
+        switch(action) {
+            case MotionEvent.ACTION_DOWN :
+            case MotionEvent.ACTION_MOVE :
+                touchX = event.getX();
+                touchY = event.getY();
+                touching = true;
+                return true;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                touching = false;
+                return false;
+        }
+        return false;
+    }
+
     public void update() {
-        characterSprite.update();
+        if (touching) {
+            characterSprite.update(touchX, touchY);
+        }
     }
 
     @Override
