@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_PlayCRUDFragment"
-            app:destination="@+id/PlayCRUDFragment" />
+            android:id="@+id/action_FirstFragment_to_GameActivity"
+            app:destination="@+id/GameActivity" />
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@+id/LevelSelectFragment" />
@@ -55,11 +55,11 @@
             app:destination="@id/HomeFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/PlayCRUDFragment"
-        android:name="com.example.project5236.PlayCRUDFragment"
+    <activity
+        android:id="@+id/GameActivity"
+        android:name="com.example.project5236.GameActivity"
         android:label="@string/play"
-        tools:layout="@layout/fragment_play_crud">
-    </fragment>
+        tools:layout="@layout/activity_game">
+    </activity>
 
 </navigation>

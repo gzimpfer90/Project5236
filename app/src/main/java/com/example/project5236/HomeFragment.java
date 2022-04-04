@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_PlayCRUDFragment);
+                        .navigate(R.id.action_FirstFragment_to_GameActivity);
             }
         });
 
