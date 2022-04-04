@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
         binding.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "HomeFragment play button pressed");
                 NavHostFragment.findNavController(HomeFragment.this)
                         .navigate(R.id.action_FirstFragment_to_GameActivity);
             }

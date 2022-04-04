@@ -1,6 +1,7 @@
 package com.example.project5236;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -10,7 +11,7 @@ import androidx.annotation.NonNull;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
-
+    private CharacterSprite characterSprite;
     public GameView(Context context) {
         super(context);
 
@@ -21,6 +22,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.smileyresize));
         thread.setRunning(true);
         thread.start();
     }
@@ -45,11 +47,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-
+        characterSprite.update();
     }
 
     @Override
     public void draw(Canvas canvas) {
+
         super.draw(canvas);
+        if (canvas!=null) {
+            characterSprite.draw(canvas);
+        }
     }
 }
