@@ -1,5 +1,6 @@
 package com.example.project5236;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,8 +35,9 @@ public class HomeFragment extends Fragment {
         binding.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_PlayCRUDFragment);
+//                NavHostFragment.findNavController(HomeFragment.this)
+//                        .navigate(R.id.action_FirstFragment_to_PlayCRUDFragment);
+                startActivity(new Intent(getContext(), PlayActivity.class));
             }
         });
 

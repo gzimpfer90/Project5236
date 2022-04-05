@@ -13,14 +13,18 @@ public class Level extends View {
     private Lightbutton[] bList;
     private Paint lineColor;
 
-    public Level(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        lineColor.setColor(Color.WHITE);
+    public Level(Context context) {
+        super(context);
+        p = new Player(context);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawColor(Color.BLACK);
+//    @Override
+//    protected void onDraw(Canvas canvas) {
+//        super.onDraw(canvas);
+//        canvas.drawColor(Color.BLACK);
+//    }
+
+    public Player getPlayer() {
+        return p;
     }
 }

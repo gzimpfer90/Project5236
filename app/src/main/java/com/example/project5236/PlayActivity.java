@@ -9,45 +9,26 @@ import com.example.project5236.databinding.ActivityPlayBinding;
 
 public class PlayActivity extends AppCompatActivity{
 
-    private static final String TAG = "Testing: ";
-    private ActivityPlayBinding binding;
+    private GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityPlayBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        gameView = new GameView(this);
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "PlayActivity on start occurred");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "PlayActivity on resume occurred");
+        setContentView(gameView);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "PlayActivity on pause occurred");
+        gameView.pause();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "PlayActivity on stop occurred");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "PlayActivity on destroy occurred");
+    protected void onResume() {
+        super.onResume();
+        gameView.resume();
     }
 }
