@@ -5,6 +5,7 @@ import static java.lang.String.valueOf;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -17,20 +18,28 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private String TAG = "Touch";
     private MainThread thread;
     private CharacterSprite characterSprite;
+    private Level level;
+    private int screenHeight;
+    private int screenWidth;
     private boolean touching = true;
-    private float touchX = 150;
-    private float touchY = 150;
-    public GameView(Context context) {
+    private float touchX;
+    private float touchY;
+    public GameView(Context context, int height, int width) {
         super(context);
-
+        screenHeight = height;
+        screenWidth = width;
+        level = new Level(screenHeight, screenWidth);
+        touchX = level.playerStartX;
+        touchY = level.playerStartY;
         getHolder().addCallback(this);
-        thread = new MainThread(getHolder(), this);
+        thread = new MainThread(getHolder(), this, level);
         setFocusable(true);
     }
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.smileyresize));
+        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.smileyresize), level.playerStartX, level.playerStartY);
+        characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX, level.topLeftY);
         thread.setRunning(true);
         thread.start();
     }
@@ -83,9 +92,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-
         super.draw(canvas);
         if (canvas!=null) {
+            level.draw(canvas);
             characterSprite.draw(canvas);
         }
     }
