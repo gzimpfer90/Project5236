@@ -1,27 +1,26 @@
 package com.example.project5236;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+
 public class Lightbutton {
-    private int xCord;
-    private int yCord;
-    private Light light;
+    public int x;
+    public int y;
+    private Bitmap image;
 
-    public Lightbutton(int x, int y, Light l){
-        xCord = x;
-        yCord = y;
-        light = l;
+    public Lightbutton(Bitmap bitmap){
+        x = 0;
+        y = 500;
+        image = bitmap;
     }
 
-    public int getxCord(){
-        return xCord;
+    public void draw(Canvas canvas) {
+        image = Bitmap.createScaledBitmap(image, 100, 100, false);
+        canvas.drawBitmap(image, x, y, null);
     }
 
-    public int getyCord(){
-        return yCord;
+    public void setImage(Bitmap bitmap) {
+        image = bitmap;
     }
-
-    public void pressButton(){
-        light.switchLight();
-    }
-
 
 }

@@ -21,7 +21,14 @@ public class CharacterSprite {
     }
 
     public void update(float touchX, float touchY) {
-        x += (touchX - x) * xVelocity;
-        y += (touchY - y) * yVelocity;
+        float xDiff = touchX-x;
+        float yDiff = touchY-y;
+        float dia = (float)Math.abs(Math.sqrt(xDiff*xDiff+yDiff*yDiff));
+        if (!(xDiff < 5 && xDiff > -5)) {
+            x += 800 * xVelocity * xDiff/dia;
+        }
+        if (!(yDiff<5 && yDiff>-5)) {
+            y += 800 * yVelocity * yDiff/dia;
+        }
     }
 }
