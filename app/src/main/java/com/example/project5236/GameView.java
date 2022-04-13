@@ -115,6 +115,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         } else {
             buttonPressing = false;
         }
+        if (Rect.intersects(characterSprite.getDetectCollision(), lButton.getDetectVisibility())) {
+            if (!lButton.getVisible()) {
+                lButton.setVisible(true);
+            }
+        } else {
+            lButton.setVisible(false);
+        }
     }
 
     @Override
