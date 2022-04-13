@@ -54,8 +54,6 @@ public class CharacterSprite {
         detectCollision.top = (int) y - 65;
         detectCollision.right = detectCollision.left + image.getWidth();
         detectCollision.bottom = detectCollision.top + image.getHeight();
-        Log.d("Sprite", "Current " + detectCollision.left + " " + detectCollision.right);
-        Log.d("Sprite", "Current " + detectCollision.top + " " + detectCollision.bottom);
     }
 
     public Rect getDetectCollision() {

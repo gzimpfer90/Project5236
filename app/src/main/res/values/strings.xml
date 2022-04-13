@@ -5,7 +5,7 @@
 
     <!-- Strings used on the home page (fragment 1) -->
 
-    <string name="home_label">WELCOME TO GAME NAME</string>
+    <string name="home_label">SCARED OF THE LIGHT</string>
     <string name="play">PLAY</string>
     <string name="level_select">LEVEL SELECT</string>
     <string name="high_scores">HIGH SCORES</string>

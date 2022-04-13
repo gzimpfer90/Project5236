@@ -26,7 +26,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private float touchX;
     private float touchY;
     private Light light;
-    private Lightbutton[] lButtons;
+    private Lightbutton lButton;
+    private boolean buttonPressing = false;
     public GameView(Context context, int height, int width) {
         super(context);
         screenHeight = height;
@@ -41,12 +42,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.smileyresize), level.playerStartX, level.playerStartY);
-        light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.redwide), level.topLeftX, level.topLeftY + 200);
-        characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX, level.topLeftY);
+        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(),
+                R.drawable.smileyresize), level.playerStartX, level.playerStartY);
+        light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.redwide),
+                BitmapFactory.decodeResource(getResources(), R.drawable.blackbox),
+                level.topLeftX, level.topLeftY + 200);
+        lButton = new Lightbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonon),
+                BitmapFactory.decodeResource(getResources(), R.drawable.buttonoff), 0,
+                level.bottomRightY - 300, light);
+        characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX,
+                level.topLeftY);
         thread.setRunning(true);
         thread.start();
-        Log.d("Level", "Start" + level.topLeftX + " " + level.topLeftY);
     }
 
     @Override
@@ -93,10 +100,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (touching) {
             characterSprite.update(touchX, touchY);
         }
-        if (Rect.intersects(characterSprite.getDetectCollision(), light.getDetectCollision())) {
+        if (Rect.intersects(characterSprite.getDetectCollision(), light.getDetectCollision()) && light.isOn) {
             characterSprite.reset();
             light.reset();
+            lButton.reset();
             touching = false;
+        }
+        if (Rect.intersects(characterSprite.getDetectCollision(), lButton.getDetectCollision())) {
+            if (!buttonPressing) {
+                lButton.pressButton();
+                buttonPressing = true;
+
+            }
+        } else {
+            buttonPressing = false;
         }
     }
 
@@ -105,8 +122,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         if (canvas!=null) {
             level.draw(canvas);
-            characterSprite.draw(canvas);
             light.draw(canvas);
+            lButton.draw(canvas);
+            characterSprite.draw(canvas);
         }
     }
 }

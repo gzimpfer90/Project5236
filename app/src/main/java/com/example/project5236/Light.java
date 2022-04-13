@@ -10,17 +10,19 @@ public class Light {
     private Bitmap imageOff;
     private Bitmap currentImage;
     public float x, y;
-    private boolean isOn;
+    public boolean isOn;
+    private boolean pastSetting;
     private Rect detectCollision;
 
-    public Light(Bitmap image, int startX, int startY){
+    public Light(Bitmap on, Bitmap off, int startX, int startY){
         x = startX;
         y = startY;
         isOn = true;
-        currentImage = image;
-        detectCollision = new Rect(startX, startY, startX + image.getWidth(), startY + image.getHeight());
-        Log.d("Light", "Current " + detectCollision.left + " " + detectCollision.right);
-        Log.d("Light", "Current " + detectCollision.top + " " + detectCollision.bottom);
+        pastSetting = true;
+        imageOff = off;
+        imageOn = on;
+        currentImage = on;
+        detectCollision = new Rect(startX, startY, startX + on.getWidth(), startY + on.getHeight());
     }
 
     public Rect getDetectCollision() {
@@ -29,6 +31,11 @@ public class Light {
 
     public void switchLight(){
         isOn = !isOn;
+        if (isOn) {
+            currentImage = imageOn;
+        } else {
+            currentImage = imageOff;
+        }
     }
 
     public void reset(){
