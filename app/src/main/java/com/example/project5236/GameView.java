@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -41,10 +42,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.smileyresize), level.playerStartX, level.playerStartY);
-        light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.red10), level.topLeftX, level.topLeftY);
+        light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.redwide), level.topLeftX, level.topLeftY + 200);
         characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX, level.topLeftY);
         thread.setRunning(true);
         thread.start();
+        Log.d("Level", "Start" + level.topLeftX + " " + level.topLeftY);
     }
 
     @Override
@@ -90,6 +92,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
         if (touching) {
             characterSprite.update(touchX, touchY);
+        }
+        if (Rect.intersects(characterSprite.getDetectCollision(), light.getDetectCollision())) {
+            characterSprite.reset();
+            light.reset();
+            touching = false;
         }
     }
 

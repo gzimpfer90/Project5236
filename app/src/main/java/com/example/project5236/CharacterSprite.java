@@ -3,6 +3,7 @@ package com.example.project5236;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.Log;
 
 public class CharacterSprite {
@@ -15,13 +16,17 @@ public class CharacterSprite {
     public int maxY;
     public int minX;
     public int minY;
+    private Rect detectCollision;
 
     public CharacterSprite(Bitmap bmp, int startX, int startY) {
         image = bmp;
         x = startX;
         y = startY;
-        spawnX = startX;
-        spawnY = startY;
+        spawnX = startX - image.getWidth();
+        spawnY = startY - image.getHeight();
+        int drawPointx = startX - 65;
+        int drawPointy = startY - 65;
+        detectCollision = new Rect(drawPointx, drawPointy, image.getWidth(), image.getHeight());
     }
 
     /* Level 1 Specific */
@@ -45,6 +50,16 @@ public class CharacterSprite {
             x = newX;
             y = newY;
         }
+        detectCollision.left = (int) x - 65;
+        detectCollision.top = (int) y - 65;
+        detectCollision.right = detectCollision.left + image.getWidth();
+        detectCollision.bottom = detectCollision.top + image.getHeight();
+        Log.d("Sprite", "Current " + detectCollision.left + " " + detectCollision.right);
+        Log.d("Sprite", "Current " + detectCollision.top + " " + detectCollision.bottom);
+    }
+
+    public Rect getDetectCollision() {
+        return detectCollision;
     }
 
     public void reset() {
