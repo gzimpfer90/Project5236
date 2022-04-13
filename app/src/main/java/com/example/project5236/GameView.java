@@ -24,6 +24,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private boolean touching = true;
     private float touchX;
     private float touchY;
+    private Light light;
+    private Lightbutton[] lButtons;
     public GameView(Context context, int height, int width) {
         super(context);
         screenHeight = height;
@@ -39,6 +41,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.smileyresize), level.playerStartX, level.playerStartY);
+        light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.red10), level.topLeftX, level.topLeftY);
         characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX, level.topLeftY);
         thread.setRunning(true);
         thread.start();
@@ -96,6 +99,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas!=null) {
             level.draw(canvas);
             characterSprite.draw(canvas);
+            light.draw(canvas);
         }
     }
 }

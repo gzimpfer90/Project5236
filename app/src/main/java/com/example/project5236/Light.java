@@ -1,19 +1,31 @@
 package com.example.project5236;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+
 public class Light {
-    int cord1;
-    int cord2;
-    int cord3;
+    private Bitmap imageOn;
+    private Bitmap imageOff;
+    private Bitmap currentImage;
+    public float x, y;
     private boolean isOn;
 
-    public Light(int c1, int c2, int c3){
-        cord1 = c1;
-        cord2 = c2;
-        cord3 = c3;
+    public Light(Bitmap image, int startX, int startY){
+        x = startX;
+        y = startY;
         isOn = true;
+        currentImage = image;
     }
 
     public void switchLight(){
         isOn = !isOn;
+    }
+
+    public void reset(){
+        isOn = true;
+    }
+
+    public void draw(Canvas canvas) {
+        canvas.drawBitmap(currentImage, x, y, null);
     }
 }

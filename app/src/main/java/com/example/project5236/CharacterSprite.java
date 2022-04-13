@@ -1,14 +1,16 @@
 package com.example.project5236;
 
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 public class CharacterSprite {
 
     private Bitmap image;
     public float x,y;
-    public float xVelocity = 0.01f;
-    public float yVelocity = 0.01f;
+    public float spawnX, spawnY;
+    public float velocity = 0.05f;
     public int maxX;
     public int maxY;
     public int minX;
@@ -18,6 +20,8 @@ public class CharacterSprite {
         image = bmp;
         x = startX;
         y = startY;
+        spawnX = startX;
+        spawnY = startY;
     }
 
     /* Level 1 Specific */
@@ -30,16 +34,21 @@ public class CharacterSprite {
         y -= image.getHeight();
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, x, y, null);
-    }
+    public void draw(Canvas canvas) { canvas.drawBitmap(image, x - 65, y - 65, null); }
 
     public void update(float touchX, float touchY) {
-        float newX = x + ((touchX - x) * xVelocity);
-        float newY = y + ((touchY - y) * yVelocity);
-        if(!(newX <= minX || newX >= (maxX - image.getWidth()) || newY <= minY || newY >= (maxY - image.getHeight()))) {
+        float newX = x + ((touchX - x) * velocity);
+        float newY = y + ((touchY - y) * velocity);
+        float xCorner = newX - 65;
+        float yCorner = newY - 65;
+        if(!(xCorner <= minX || xCorner >= (maxX - image.getWidth()) || yCorner <= minY || yCorner >= (maxY - image.getHeight()))) {
             x = newX;
             y = newY;
         }
+    }
+
+    public void reset() {
+        x = spawnX;
+        y = spawnY;
     }
 }
