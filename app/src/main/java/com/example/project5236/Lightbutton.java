@@ -57,6 +57,7 @@ public class Lightbutton {
 
     public void reset(){
         currentImage = imageOn;
+        on = true;
     }
 
     public void draw(Canvas canvas) {

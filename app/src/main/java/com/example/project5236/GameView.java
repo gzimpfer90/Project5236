@@ -8,11 +8,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -27,7 +35,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private float touchY;
     private Light light;
     private Lightbutton lButton;
+    private Winbutton wButton;
     private boolean buttonPressing = false;
+    private boolean completed = false;
+
+    //instantiate popup window
+    View pwView = inflate(getContext(), R.layout.popup_win, null);
+    Button backBtn = (Button) pwView.findViewById(R.id.backBtn);
+    Button restartBtn = (Button) pwView.findViewById(R.id.restartBtn);
+    Button nextBtn = (Button) pwView.findViewById(R.id.nextBtn);
+    PopupWindow popupWindow = new PopupWindow(pwView, ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
     public GameView(Context context, int height, int width) {
         super(context);
         screenHeight = height;
@@ -50,6 +69,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         lButton = new Lightbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonon),
                 BitmapFactory.decodeResource(getResources(), R.drawable.buttonoff), 0,
                 level.bottomRightY - 300, light);
+        wButton = new Winbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonwin),
+                600, level.topLeftY);
         characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX,
                 level.topLeftY);
         thread.setRunning(true);
@@ -77,50 +98,61 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int index = event.getActionIndex();
-        int action = event.getActionMasked();
-        int pointerId = event.getPointerId(index);
+        if (completed) {
+            addPopup();
+        } else {
+            int index = event.getActionIndex();
+            int action = event.getActionMasked();
+            int pointerId = event.getPointerId(index);
 
-        switch(action) {
-            case MotionEvent.ACTION_DOWN :
-            case MotionEvent.ACTION_MOVE :
-                touchX = event.getX();
-                touchY = event.getY();
-                touching = true;
-                return true;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                touching = false;
-                return false;
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    touchX = event.getX();
+                    touchY = event.getY();
+                    touching = true;
+                    return true;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    touching = false;
+                    return false;
+            }
         }
         return false;
     }
 
     public void update() {
-        if (touching) {
-            characterSprite.update(touchX, touchY);
-        }
-        if (Rect.intersects(characterSprite.getDetectCollision(), light.getDetectCollision()) && light.isOn) {
-            characterSprite.reset();
-            light.reset();
-            lButton.reset();
-            touching = false;
-        }
-        if (Rect.intersects(characterSprite.getDetectCollision(), lButton.getDetectCollision())) {
-            if (!buttonPressing) {
-                lButton.pressButton();
-                buttonPressing = true;
+        if (!completed) {
+            if (touching) {
+                characterSprite.update(touchX, touchY);
+            }
+            if (Rect.intersects(characterSprite.getDetectCollision(), light.getDetectCollision()) && light.isOn) {
+                characterSprite.reset();
+                light.reset();
+                lButton.reset();
+                touching = false;
+            }
+            if (Rect.intersects(characterSprite.getDetectCollision(), lButton.getDetectCollision())) {
+                if (!buttonPressing) {
+                    lButton.pressButton();
+                    buttonPressing = true;
 
+                }
+            } else {
+                buttonPressing = false;
             }
-        } else {
-            buttonPressing = false;
-        }
-        if (Rect.intersects(characterSprite.getDetectCollision(), lButton.getDetectVisibility())) {
-            if (!lButton.getVisible()) {
-                lButton.setVisible(true);
+
+            if (Rect.intersects(characterSprite.getDetectCollision(), lButton.getDetectVisibility())) {
+                if (!lButton.getVisible()) {
+                    lButton.setVisible(true);
+                }
+            } else {
+                lButton.setVisible(false);
             }
-        } else {
-            lButton.setVisible(false);
+
+            if (Rect.intersects(characterSprite.getDetectCollision(), wButton.getDetectCollision())) {
+                completed = true;
+            }
         }
     }
 
@@ -131,7 +163,30 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             level.draw(canvas);
             light.draw(canvas);
             lButton.draw(canvas);
+            wButton.draw(canvas);
             characterSprite.draw(canvas);
         }
+    }
+
+    public void addPopup(){
+        //display the popup window
+        popupWindow.showAtLocation(this, Gravity.CENTER, 0, 0);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigateUp();
+            }
+        });
+        restartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                completed = false;
+                characterSprite.reset();
+                light.reset();
+                lButton.reset();
+                touching = false;
+                popupWindow.dismiss();
+            }
+        });
     }
 }

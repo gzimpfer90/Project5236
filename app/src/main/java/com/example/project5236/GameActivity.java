@@ -29,4 +29,9 @@ public class GameActivity extends Activity {
         setContentView(new GameView(this, screenHeight, screenWidth));
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
 }

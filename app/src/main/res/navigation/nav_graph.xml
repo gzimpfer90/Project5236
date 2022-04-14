@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/HomeFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_GameActivity"
+            app:destination="@id/GameActivity" />
     </fragment>
     <fragment
         android:id="@+id/HighScoresFragment"
@@ -60,6 +63,7 @@
         android:name="com.example.project5236.GameActivity"
         android:label="@string/play"
         tools:layout="@layout/activity_game">
+
     </activity>
 
 </navigation>

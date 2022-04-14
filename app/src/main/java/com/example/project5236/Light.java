@@ -40,6 +40,7 @@ public class Light {
 
     public void reset(){
         isOn = true;
+        currentImage = imageOn;
     }
 
     public void draw(Canvas canvas) {

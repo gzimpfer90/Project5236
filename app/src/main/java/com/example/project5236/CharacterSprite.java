@@ -16,6 +16,8 @@ public class CharacterSprite {
     public int maxY;
     public int minX;
     public int minY;
+    public int drawPointx;
+    public int drawPointy;
     private Rect detectCollision;
 
     public CharacterSprite(Bitmap bmp, int startX, int startY) {
@@ -24,8 +26,8 @@ public class CharacterSprite {
         y = startY;
         spawnX = startX - image.getWidth();
         spawnY = startY - image.getHeight();
-        int drawPointx = startX - 65;
-        int drawPointy = startY - 65;
+        drawPointx = startX - 65;
+        drawPointy = startY - 65;
         detectCollision = new Rect(drawPointx, drawPointy, image.getWidth(), image.getHeight());
     }
 
@@ -63,5 +65,6 @@ public class CharacterSprite {
     public void reset() {
         x = spawnX;
         y = spawnY;
+        detectCollision = new Rect(drawPointx, drawPointy, image.getWidth(), image.getHeight());
     }
 }

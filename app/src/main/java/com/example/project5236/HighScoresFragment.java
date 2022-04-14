@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,11 +14,21 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.project5236.databinding.FragmentHighScoresBinding;
 import com.example.project5236.databinding.FragmentSecondBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class HighScoresFragment extends Fragment {
 
     private FragmentHighScoresBinding binding;
     private static final String TAG = "Testing: ";
+
+    FirebaseDatabase rootNode;
+    DatabaseReference levelsReference;
 
     @Override
     public View onCreateView(
@@ -31,6 +43,35 @@ public class HighScoresFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ArrayList<String> level_list = new ArrayList<>();
+        ListView listView = binding.highScoreList;
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                level_list);
+        listView.setAdapter(listViewAdapter);
+
+        rootNode = FirebaseDatabase.getInstance();
+        levelsReference = rootNode.getReference("Levels");
+
+        levelsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                level_list.clear();
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    level_list.add(
+                            ds.getKey() + ": " +
+                                    ds.getValue().toString());
+                }
+                listViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override

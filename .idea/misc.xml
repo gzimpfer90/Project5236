@@ -15,6 +15,7 @@
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_play_crud.xml" value="0.1" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/menu/menu_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.26081390380859376" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1621376811594203" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.182518115942029" />
@@ -22,6 +23,7 @@
         <entry key="app/src/main/res/layout/fragment_play_crud.xml" value="0.1621376811594203" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1621376811594203" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/popup_win.xml" value="0.1" />
       </map>
     </option>
   </component>
