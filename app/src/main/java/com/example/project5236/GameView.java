@@ -22,6 +22,12 @@ import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private String TAG = "Touch";
@@ -38,6 +44,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Winbutton wButton;
     private boolean buttonPressing = false;
     private boolean completed = false;
+    FirebaseDatabase rootNode;
+    DatabaseReference levelsReference;
+    DatabaseReference nextReference;
 
     //instantiate popup window
     View pwView = inflate(getContext(), R.layout.popup_win, null);
@@ -99,6 +108,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (completed) {
+            rootNode = FirebaseDatabase.getInstance();
+            levelsReference = rootNode.getReference("Levels");
+            nextReference = rootNode.getReference("NextLevel");
+
+            nextReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String nextName = "Level" + snapshot.getValue().toString();
+                    int nextLevelVal = Integer.parseInt(snapshot.getValue().toString());
+                    String currentName = "Level" + (nextLevelVal - 1);
+                    LevelHelperClass completeUpdate = new LevelHelperClass(1,0 );
+                    LevelHelperClass nextUpdate = new LevelHelperClass(0, 0);
+                    nextReference.setValue(nextLevelVal + 1);
+                    levelsReference.child(currentName).setValue(completeUpdate);
+                    levelsReference.child(nextName).setValue(nextUpdate);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
             addPopup();
         } else {
             int index = event.getActionIndex();
