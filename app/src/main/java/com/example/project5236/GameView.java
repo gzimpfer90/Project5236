@@ -36,6 +36,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Light light;
     private Lightbutton lButton;
     private Winbutton wButton;
+    private Star star1;
+    private Star star2;
+    private Star star3;
     private boolean buttonPressing = false;
     private boolean completed = false;
 
@@ -71,6 +74,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 level.bottomRightY - 300, light);
         wButton = new Winbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonwin),
                 600, level.topLeftY);
+        star1 = new Star(level.topLeftX + 100, level.topLeftY + 100);
+        star2 = new Star(level.bottomRightX - 100, level.topLeftY + 50);
+        star3 = new Star(level.bottomRightX - 100, level.topLeftY + 500);
         characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX,
                 level.topLeftY);
         thread.setRunning(true);
@@ -121,6 +127,46 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         return false;
     }
 
+    private void updateStars() {
+
+        if (Rect.intersects(characterSprite.getDetectCollision(), star1.getDetectVisibility())) {
+            if (!star1.getVisible() && !star1.getTouched()) {
+                star1.setVisible(true);
+            }
+        } else {
+            star1.setVisible(false);
+        }
+        if (Rect.intersects(characterSprite.getDetectCollision(), star2.getDetectVisibility())) {
+            if (!star2.getVisible() && !star2.getTouched()) {
+                star2.setVisible(true);
+            }
+        } else {
+            star2.setVisible(false);
+        }
+        if (Rect.intersects(characterSprite.getDetectCollision(), star3.getDetectVisibility())) {
+            if (!star3.getVisible() && !star3.getTouched()) {
+                star3.setVisible(true);
+            }
+        } else {
+            star3.setVisible(false);
+        }
+        if (Rect.intersects(characterSprite.getDetectCollision(), star1.getDetectCollision())) {
+            if (!star1.getTouched()) {
+                star1.touched();
+            }
+        }
+        if (Rect.intersects(characterSprite.getDetectCollision(), star2.getDetectCollision())) {
+            if (!star2.getTouched()) {
+                star2.touched();
+            }
+        }
+        if (Rect.intersects(characterSprite.getDetectCollision(), star3.getDetectCollision())) {
+            if (!star3.getTouched()) {
+                star3.touched();
+            }
+        }
+    }
+
     public void update() {
         if (!completed) {
             if (touching) {
@@ -153,6 +199,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             if (Rect.intersects(characterSprite.getDetectCollision(), wButton.getDetectCollision())) {
                 completed = true;
             }
+            updateStars();
         }
     }
 
@@ -164,7 +211,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             light.draw(canvas);
             lButton.draw(canvas);
             wButton.draw(canvas);
+            star1.draw(canvas);
+            star2.draw(canvas);
+            star3.draw(canvas);
             characterSprite.draw(canvas);
+
         }
     }
 
@@ -184,6 +235,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 characterSprite.reset();
                 light.reset();
                 lButton.reset();
+                star1.reset();
+                star2.reset();
+                star3.reset();
                 touching = false;
                 popupWindow.dismiss();
             }
