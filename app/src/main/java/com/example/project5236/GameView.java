@@ -70,18 +70,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        int lightY = level.topLeftY + (int) ((level.bottomRightY - level.topLeftY) * 0.2);
+        int lButtonY = level.bottomRightY - (int) ((level.bottomRightX - level.topLeftY) * 0.4);
+        int wButtonX = level.topLeftX + (int) ((level.bottomRightX - level.topLeftX) * 0.55);
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(),
                 R.drawable.smileyresize), level.playerStartX, level.playerStartY);
         light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.redwide),
                 BitmapFactory.decodeResource(getResources(), R.drawable.blackbox),
-                level.topLeftX, level.topLeftY + 200);
+                level.topLeftX, lightY);
         lButton = new Lightbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonon),
-                BitmapFactory.decodeResource(getResources(), R.drawable.buttonoff), 0,
-                level.bottomRightY - 300, light);
+                BitmapFactory.decodeResource(getResources(), R.drawable.buttonoff), level.topLeftX,
+                lButtonY, light);
         wButton = new Winbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonwin),
-                600, level.topLeftY);
+                wButtonX, level.topLeftY);
         characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX,
                 level.topLeftY);
+        Log.d("Screen",level.topLeftX + " " + level.bottomRightX);
         thread.setRunning(true);
         thread.start();
     }

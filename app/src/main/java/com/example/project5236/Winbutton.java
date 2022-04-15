@@ -14,7 +14,9 @@ public class Winbutton {
     public Winbutton(Bitmap bitmap, int x, int y){
         xCord = x;
         yCord = y;
-        image = Bitmap.createScaledBitmap(bitmap, 200, 150, false);
+        int width = x / 3;
+        int height = x / 4;
+        image = Bitmap.createScaledBitmap(bitmap, width, height, false);
         detectCollision = new Rect(x, y, x + image.getWidth(), y + image.getHeight());
     }
 
