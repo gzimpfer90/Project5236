@@ -20,14 +20,15 @@ public class CharacterSprite {
     public int drawPointy;
     private Rect detectCollision;
 
-    public CharacterSprite(Bitmap bmp, int startX, int startY) {
-        image = bmp;
+    public CharacterSprite(Bitmap bmp, int startX, int startY, Level level) {
+        int scale = (int) ((level.bottomRightX - level.topLeftX) * 0.1);
+        image = Bitmap.createScaledBitmap(bmp, scale, scale, false);
         x = startX;
         y = startY;
         spawnX = startX - image.getWidth();
         spawnY = startY - image.getHeight();
-        drawPointx = startX - 65;
-        drawPointy = startY - 65;
+        drawPointx = startX - (scale / 2);
+        drawPointy = startY - (scale / 2);
         detectCollision = new Rect(drawPointx, drawPointy, image.getWidth(), image.getHeight());
     }
 
@@ -41,7 +42,7 @@ public class CharacterSprite {
         y -= image.getHeight();
     }
 
-    public void draw(Canvas canvas) { canvas.drawBitmap(image, x - 65, y - 65, null); }
+    public void draw(Canvas canvas) { canvas.drawBitmap(image, drawPointx, drawPointy, null); }
 
     public void update(float touchX, float touchY) {
         float newX = x + ((touchX - x) * velocity);
@@ -52,8 +53,10 @@ public class CharacterSprite {
             x = newX;
             y = newY;
         }
-        detectCollision.left = (int) x - 65;
-        detectCollision.top = (int) y - 65;
+        drawPointx = (int) x - 65;
+        drawPointy = (int) y - 65;
+        detectCollision.left = drawPointx;
+        detectCollision.top = drawPointy;
         detectCollision.right = detectCollision.left + image.getWidth();
         detectCollision.bottom = detectCollision.top + image.getHeight();
     }

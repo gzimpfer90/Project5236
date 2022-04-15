@@ -14,7 +14,11 @@ public class Light {
     private boolean pastSetting;
     private Rect detectCollision;
 
-    public Light(Bitmap on, Bitmap off, int startX, int startY){
+    public Light(Bitmap on, Bitmap off, int startX, int startY, Level level){
+        int width = level.screenWidth;
+        int height = (int) (level.screenHeight * 0.03);
+        on = Bitmap.createScaledBitmap(on, width, height, false);
+        off = Bitmap.createScaledBitmap(off, width, height, false);
         x = startX;
         y = startY;
         isOn = true;

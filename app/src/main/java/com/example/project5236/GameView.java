@@ -45,6 +45,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Star star1;
     private Star star2;
     private Star star3;
+    private int starCount = 0;
     private boolean buttonPressing = false;
     private boolean completed = false;
     FirebaseDatabase rootNode;
@@ -77,13 +78,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         int lButtonY = level.bottomRightY - (int) ((level.bottomRightX - level.topLeftY) * 0.4);
         int wButtonX = level.topLeftX + (int) ((level.bottomRightX - level.topLeftX) * 0.55);
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(),
-                R.drawable.smileyresize), level.playerStartX, level.playerStartY);
+                R.drawable.smileyresize), level.playerStartX, level.playerStartY, level);
         light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.redwide),
                 BitmapFactory.decodeResource(getResources(), R.drawable.blackbox),
-                level.topLeftX, lightY);
+                level.topLeftX, lightY, level);
         lButton = new Lightbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonon),
                 BitmapFactory.decodeResource(getResources(), R.drawable.buttonoff), level.topLeftX,
-                lButtonY, light);
+                lButtonY, light, level);
         wButton = new Winbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonwin),
                 wButtonX, level.topLeftY);
         star1 = new Star(level.topLeftX + 100, level.topLeftY + 100);
@@ -124,14 +125,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             nextReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String nextName = "Level" + snapshot.getValue().toString();
-                    int nextLevelVal = Integer.parseInt(snapshot.getValue().toString());
-                    String currentName = "Level" + (nextLevelVal - 1);
-                    LevelHelperClass completeUpdate = new LevelHelperClass(1,0 );
-                    LevelHelperClass nextUpdate = new LevelHelperClass(0, 0);
-                    nextReference.setValue(nextLevelVal + 1);
+                    String currentName = "Level1";
+                    LevelHelperClass completeUpdate = new LevelHelperClass(1,starCount);
                     levelsReference.child(currentName).setValue(completeUpdate);
-                    levelsReference.child(nextName).setValue(nextUpdate);
 
                 }
 
@@ -188,16 +184,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (Rect.intersects(characterSprite.getDetectCollision(), star1.getDetectCollision())) {
             if (!star1.getTouched()) {
                 star1.touched();
+                starCount += 1;
             }
         }
         if (Rect.intersects(characterSprite.getDetectCollision(), star2.getDetectCollision())) {
             if (!star2.getTouched()) {
                 star2.touched();
+                starCount += 1;
             }
         }
         if (Rect.intersects(characterSprite.getDetectCollision(), star3.getDetectCollision())) {
             if (!star3.getTouched()) {
                 star3.touched();
+                starCount += 1;
             }
         }
     }
@@ -275,6 +274,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 star3.reset();
                 touching = false;
                 popupWindow.dismiss();
+                starCount = 0;
             }
         });
     }

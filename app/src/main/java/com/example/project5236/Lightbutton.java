@@ -19,7 +19,10 @@ public class Lightbutton {
     private boolean visible = false;
     private Paint p = new Paint();
 
-    public Lightbutton(Bitmap on, Bitmap off, int x, int y, Light l){
+    public Lightbutton(Bitmap on, Bitmap off, int x, int y, Light l, Level level){
+        int scale = (int) (level.screenHeight * 0.08);
+        on = Bitmap.createScaledBitmap(on, scale, scale, false);
+        off = Bitmap.createScaledBitmap(off, scale, scale, false);
         xCord = x;
         yCord = y;
         light = l;
