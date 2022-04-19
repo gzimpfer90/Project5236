@@ -66,4 +66,12 @@
 
     </activity>
 
+<!--    <activity-->
+<!--        android:id="@+id/SettingsActivity"-->
+<!--        android:name="com.example.project5236.SettingsActivity"-->
+<!--        android:label="@string/settings"-->
+<!--        tools:layout="@layout/settings_activity">-->
+
+<!--    </activity>-->
+
 </navigation>

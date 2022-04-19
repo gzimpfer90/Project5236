@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HighScoresFragment extends Fragment {
 
@@ -59,10 +60,14 @@ public class HighScoresFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 level_list.clear();
+                HashMap<String, Long> hashMap;
                 for(DataSnapshot ds : snapshot.getChildren()) {
+                    hashMap = (HashMap<String, Long>) ds.getValue();
                     level_list.add(
-                            ds.getKey() + ": " +
-                                    ds.getValue().toString());
+                            getString(R.string.level) + " " + ds.getKey().substring(5) + ": "
+                                    + getString(R.string.completed) + ", "
+                                    + getString(R.string.star) + ": "
+                                    + hashMap.get("stars").toString());
                 }
                 listViewAdapter.notifyDataSetChanged();
             }

@@ -65,7 +65,7 @@ public class LevelSelectFragment extends Fragment {
                 String nextL = snapshot.getValue().toString();
                 int nextLevel = Integer.parseInt(nextL);
                 for (int i = 0; i < nextLevel - 1; i++) {
-                    level_list.add("Level "+(i+1));
+                    level_list.add(getString(R.string.level) + " " +(i+1));
                 }
                 listViewAdapter.notifyDataSetChanged();
             }

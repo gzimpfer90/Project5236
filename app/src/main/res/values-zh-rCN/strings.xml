@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">项目5236</string>
+    <string name="action_settings">设置</string>
+
+
+    <!-- Strings used on the home page (fragment 1) -->
+
+    <string name="home_label">SCARED OF THE LIGHT</string>
+    <string name="play">开始</string>
+    <string name="level_select">选择级别</string>
+    <string name="high_scores">分数列表</string>
+    <string name="settings">设置</string>
+
+    <string name="back">返回</string>
+    <string name="create">CREATE</string>
+    <string name="read">READ</string>
+    <string name="update">UPDATE</string>
+    <string name="delete">DELETE</string>
+
+    <string name="restart">重玩</string>
+    <string name="next">下级</string>
+    <string name="congrats">恭喜！您已经完成了这一级别！</string>
+    <string name="level">级别</string>
+    <string name="completed">已完成</string>
+    <string name="star">收集的星星</string>
+
+    <string name="general_header">通用</string>
+    <string name="language_title">语言</string>
+    <string name="english">英语</string>
+    <string name="chinese">中文</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Congratulation! You've completed this level!"
+        android:text="@string/congrats"
         android:textColor="#fff"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,20 +20,20 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
+            android:text="@string/back"
             android:layout_weight="1"
             android:id="@+id/backBtn"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restart"
+            android:text="@string/restart"
             android:layout_weight="1"
             android:id="@+id/restartBtn"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Next"
+            android:text="@string/next"
             android:id="@+id/nextBtn"/>
     </LinearLayout>
 
