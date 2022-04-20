@@ -77,6 +77,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         int lightY = level.topLeftY + (int) ((level.bottomRightY - level.topLeftY) * 0.2);
         int lButtonY = level.bottomRightY - (int) ((level.bottomRightX - level.topLeftY) * 0.4);
         int wButtonX = level.topLeftX + (int) ((level.bottomRightX - level.topLeftX) * 0.55);
+        int squareWidth = level.bottomRightX - level.topLeftX;
+        int squareHeight = level.bottomRightY - level.topLeftY;
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(),
                 R.drawable.smileyresize), level.playerStartX, level.playerStartY, level);
         light = new Light(BitmapFactory.decodeResource(getResources(), R.drawable.redwide),
@@ -87,9 +89,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 lButtonY, light, level);
         wButton = new Winbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonwin),
                 wButtonX, level.topLeftY);
-        star1 = new Star(level.topLeftX + 100, level.topLeftY + 100);
-        star2 = new Star(level.bottomRightX - 100, level.topLeftY + 50);
-        star3 = new Star(level.bottomRightX - 100, level.topLeftY + 500);
+        star1 = new Star((int) (level.topLeftX + (0.093 * squareWidth)),
+                (int) (level.topLeftY + (0.101 * squareHeight)), level);
+        star2 = new Star((int) (level.bottomRightX - (0.093 * squareWidth)),
+                (int) (level.topLeftY + (0.051 * squareHeight)), level);
+        star3 = new Star((int) (level.bottomRightX - (0.093 * squareWidth)),
+                (int) (level.topLeftY + (0.506 * squareHeight)), level);
         characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX,
                 level.topLeftY);
         thread.setRunning(true);

@@ -10,6 +10,7 @@ import android.graphics.Rect;
 public class Star {
     private int xCord;
     private int yCord;
+    private int squareWidth, squareHeight;
     private Rect detectCollision;
     private Rect detectVisibility;
     private boolean touched = false;
@@ -17,9 +18,11 @@ public class Star {
     private Paint p = new Paint();
     private Path st;
 
-    public Star(int x, int y){
+    public Star(int x, int y, Level level){
         xCord = x;
         yCord = y;
+        squareWidth = level.bottomRightX - level.topLeftX;
+        squareHeight = level.bottomRightY - level.topLeftY;
         st = new Path();
         buildStar();
         detectCollision = new Rect(x, y, x + 70, y + 70);
@@ -27,18 +30,31 @@ public class Star {
     }
 
     private void buildStar() {
+        int x30 = (int) (0.0278 * squareWidth);
+        int x9 = (int) (0.0083 * squareWidth);
+        int x21 = (int) (0.0194 * squareWidth);
+        int x18 = (int) (0.0167 * squareWidth);
+        int x51 = (int) (0.0472 * squareWidth);
+        int x42 = (int) (0.0389 * squareWidth);
+        int x60 = (int) (0.0556 * squareWidth);
+        int x39 = (int) (0.0361 * squareWidth);
+        int y21 = (int) (0.0212 * squareHeight);
+        int y36 = (int) (0.0333 * squareHeight);
+        int y63 = (int) (0.0637 * squareHeight);
+        int y48 = (int) (0.0485 * squareHeight);
+
         p.setColor(Color.YELLOW);
-        st.moveTo(xCord+30, yCord);
-        st.lineTo(xCord+21, yCord+21);
-        st.lineTo(xCord, yCord+21);
-        st.lineTo(xCord+18, yCord+36);
-        st.lineTo(xCord+9, yCord+63);
-        st.lineTo(xCord+30, yCord+48);
-        st.lineTo(xCord+51, yCord+63);
-        st.lineTo(xCord+42, yCord+36);
-        st.lineTo(xCord+60, yCord+21);
-        st.lineTo(xCord+39, yCord+21);
-        st.lineTo(xCord+30, yCord);
+        st.moveTo(xCord + x30, yCord);
+        st.lineTo(xCord + x21, yCord + y21);
+        st.lineTo(xCord, yCord + y21);
+        st.lineTo(xCord + x18, yCord + y36);
+        st.lineTo(xCord + x9, yCord + y63);
+        st.lineTo(xCord + x30, yCord + y48);
+        st.lineTo(xCord + x51, yCord + y63);
+        st.lineTo(xCord + x42, yCord + y36);
+        st.lineTo(xCord + x60, yCord + y21);
+        st.lineTo(xCord + x39, yCord + y21);
+        st.lineTo(xCord + x30, yCord);
     }
     public Rect getDetectCollision() {
         return detectCollision;
