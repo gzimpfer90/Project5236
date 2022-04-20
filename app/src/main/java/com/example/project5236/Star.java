@@ -25,8 +25,11 @@ public class Star {
         squareHeight = level.bottomRightY - level.topLeftY;
         st = new Path();
         buildStar();
-        detectCollision = new Rect(x, y, x + 70, y + 70);
-        detectVisibility = new Rect(x - 100, y - 100, x + 170, y + 170);
+        detectCollision = new Rect(x, y, x + (int) (0.0648 * squareWidth),
+                y + (int) (0.0708 * squareHeight));
+        detectVisibility = new Rect(x - (int) (0.0926 * squareWidth),
+                y - (int) (.1011 * squareHeight), x + (int) (0.1574 * squareWidth),
+                y + (int) (0.1719 * squareHeight));
     }
 
     private void buildStar() {
@@ -89,7 +92,8 @@ public class Star {
         canvas.drawPath(st, p);
         if(!visible || touched) {
             p.setColor(Color.BLACK);
-            canvas.drawRect(xCord, yCord, xCord + 70, yCord + 70, p);
+            canvas.drawRect(xCord, yCord, xCord + (int) (0.0648 * squareWidth),
+                    yCord + (int) (0.0708 * squareHeight), p);
         }
     }
 
