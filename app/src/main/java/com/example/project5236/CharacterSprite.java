@@ -18,10 +18,11 @@ public class CharacterSprite {
     public int minY;
     public int drawPointx;
     public int drawPointy;
+    private int scale;
     private Rect detectCollision;
 
     public CharacterSprite(Bitmap bmp, int startX, int startY, Level level) {
-        int scale = (int) ((level.bottomRightX - level.topLeftX) * 0.1);
+        scale = (int) ((level.bottomRightX - level.topLeftX) * 0.1);
         image = Bitmap.createScaledBitmap(bmp, scale, scale, false);
         x = startX;
         y = startY;
@@ -31,6 +32,9 @@ public class CharacterSprite {
         drawPointy = startY - (scale / 2);
         detectCollision = new Rect(drawPointx, drawPointy, image.getWidth(), image.getHeight());
     }
+
+    public int getImageWidth() { return image.getWidth(); }
+    public int getImageHeight() { return image.getHeight(); }
 
     /* Level 1 Specific */
     public void createBounds(int xMax, int yMax, int xMin, int yMin) {
@@ -68,6 +72,8 @@ public class CharacterSprite {
     public void reset() {
         x = spawnX;
         y = spawnY;
+        drawPointx = (int) spawnX - (scale / 2);
+        drawPointy = (int) spawnY - (scale / 2);
         detectCollision = new Rect(drawPointx, drawPointy, image.getWidth(), image.getHeight());
     }
 }

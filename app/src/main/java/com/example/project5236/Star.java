@@ -17,14 +17,16 @@ public class Star {
     private boolean visible = false;
     private Paint p = new Paint();
     private Path st;
+    private boolean top;
 
-    public Star(int x, int y, Level level){
+    public Star(int x, int y, Level level, boolean t){
         xCord = x;
         yCord = y;
+        top = t;
         squareWidth = level.bottomRightX - level.topLeftX;
         squareHeight = level.bottomRightY - level.topLeftY;
         st = new Path();
-        buildStar();
+        if(!t) { buildStar(); }
         detectCollision = new Rect(x, y, x + (int) (0.0648 * squareWidth),
                 y + (int) (0.0708 * squareHeight));
         detectVisibility = new Rect(x - (int) (0.0926 * squareWidth),
@@ -77,6 +79,12 @@ public class Star {
 
     public boolean getTouched() { return touched; }
 
+    public void scale(int x) {
+        squareHeight *= x;
+        squareWidth *= x;
+        buildStar();
+    }
+
     public void touched(){
         touched = true;
         //increment star counter
@@ -84,12 +92,18 @@ public class Star {
 
     public void reset(){
         touched = false;
+        visible = false;
         //decrement star counter
     }
 
     public void draw(Canvas canvas) {
         p.setColor(Color.YELLOW);
         canvas.drawPath(st, p);
+        p.setColor(Color.BLACK);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(3);
+        canvas.drawPath(st, p);
+        p.setStyle(Paint.Style.FILL);
         if(!visible || touched) {
             p.setColor(Color.BLACK);
             canvas.drawRect(xCord, yCord, xCord + (int) (0.0648 * squareWidth),

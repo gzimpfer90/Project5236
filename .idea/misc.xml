@@ -8,6 +8,7 @@
         <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/activity_game.xml" value="0.1984375" />
         <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/activity_main.xml" value="0.1984375" />
         <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="..\:/Users/ethan/AndroidStudioProjects/Project5236/app/src/main/res/layout/popup_win.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/activity_main.xml" value="0.11979166666666667" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/content_main.xml" value="0.15443840579710144" />
         <entry key="..\:/Users/gzimp/AndroidStudioProjects/Project5236/app/src/main/res/layout/fragment_first.xml" value="0.15443840579710144" />
@@ -24,8 +25,6 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1621376811594203" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.1" />
         <entry key="app/src/main/res/layout/popup_win.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/settings_activity.xml" value="0.1" />
-        <entry key="app/src/main/res/xml/root_preferences.xml" value="0.1" />
       </map>
     </option>
   </component>

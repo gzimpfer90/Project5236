@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,6 +46,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Star star1;
     private Star star2;
     private Star star3;
+    private Star topStar1;
+    private Star topStar2;
+    private Star topStar3;
+    private Paint p = new Paint();
+    private int score = 1000;
     private int starCount = 0;
     private boolean buttonPressing = false;
     private boolean completed = false;
@@ -90,13 +96,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         wButton = new Winbutton(BitmapFactory.decodeResource(getResources(), R.drawable.buttonwin),
                 wButtonX, level.topLeftY);
         star1 = new Star((int) (level.topLeftX + (0.093 * squareWidth)),
-                (int) (level.topLeftY + (0.101 * squareHeight)), level);
+                (int) (level.topLeftY + (0.101 * squareHeight)), level, false);
         star2 = new Star((int) (level.bottomRightX - (0.093 * squareWidth)),
-                (int) (level.topLeftY + (0.051 * squareHeight)), level);
+                (int) (level.topLeftY + (0.051 * squareHeight)), level, false);
         star3 = new Star((int) (level.bottomRightX - (0.093 * squareWidth)),
-                (int) (level.topLeftY + (0.506 * squareHeight)), level);
+                (int) (level.topLeftY + (0.506 * squareHeight)), level, false);
+        topStar1 = new Star( (int) (level.topLeftX + (0.05 * squareWidth)),
+                (int) (level.topLeftY - (0.33 * squareHeight)), level, true);
+        topStar2 = new Star((int) (level.topLeftX + (0.40 * squareWidth)),
+                (int) (level.topLeftY - (0.33 * squareHeight)), level, true);
+        topStar3 = new Star((int) (level.topLeftX + (.75 * squareWidth)),
+                (int) (level.topLeftY - (0.33 * squareHeight)), level, true);
+        topStar1.scale(3);
+        topStar2.scale(3);
+        topStar3.scale(3);
         characterSprite.createBounds(level.bottomRightX, level.bottomRightY, level.topLeftX,
                 level.topLeftY);
+        touchX -= characterSprite.getImageWidth();
+        touchY -= characterSprite.getImageHeight();
         thread.setRunning(true);
         thread.start();
     }
@@ -123,6 +140,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (completed) {
+            touchX = screenWidth - characterSprite.getImageWidth();
+            touchY = screenHeight - characterSprite.getImageHeight();
+            characterSprite.reset();
             rootNode = FirebaseDatabase.getInstance();
             levelsReference = rootNode.getReference("Levels");
             nextReference = rootNode.getReference("NextLevel");
@@ -189,18 +209,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (Rect.intersects(characterSprite.getDetectCollision(), star1.getDetectCollision())) {
             if (!star1.getTouched()) {
                 star1.touched();
+                topStar1.setVisible(true);
+                score += 500;
                 starCount += 1;
             }
         }
         if (Rect.intersects(characterSprite.getDetectCollision(), star2.getDetectCollision())) {
             if (!star2.getTouched()) {
                 star2.touched();
+                topStar2.setVisible(true);
+                score += 500;
                 starCount += 1;
             }
         }
         if (Rect.intersects(characterSprite.getDetectCollision(), star3.getDetectCollision())) {
             if (!star3.getTouched()) {
                 star3.touched();
+                topStar3.setVisible(true);
+                score += 500;
                 starCount += 1;
             }
         }
@@ -212,9 +238,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 characterSprite.update(touchX, touchY);
             }
             if (Rect.intersects(characterSprite.getDetectCollision(), light.getDetectCollision()) && light.isOn) {
+                touchX = screenWidth - characterSprite.getImageWidth();
+                touchY = screenHeight - characterSprite.getImageHeight();
                 characterSprite.reset();
                 light.reset();
                 lButton.reset();
+                star1.reset();
+                star2.reset();
+                star3.reset();
+                topStar1.reset();
+                topStar2.reset();
+                topStar3.reset();
+                score = 1000;
                 touching = false;
             }
             if (Rect.intersects(characterSprite.getDetectCollision(), lButton.getDetectCollision())) {
@@ -239,6 +274,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 completed = true;
             }
             updateStars();
+            score--;
         }
     }
 
@@ -253,8 +289,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             star1.draw(canvas);
             star2.draw(canvas);
             star3.draw(canvas);
+            topStar1.draw(canvas);
+            topStar2.draw(canvas);
+            topStar3.draw(canvas);
             characterSprite.draw(canvas);
-
+            p.setColor(Color.BLACK);
+            p.setTextSize(screenWidth / 5);
+            canvas.drawText(String.valueOf(score), (int) (screenWidth / 3), (int) (screenHeight - (screenHeight / 8)), p);
         }
     }
 
@@ -271,6 +312,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             @Override
             public void onClick(View v) {
                 completed = false;
+                touchX = screenWidth - characterSprite.getImageWidth();
+                touchY = screenHeight - characterSprite.getImageHeight();
                 characterSprite.reset();
                 light.reset();
                 lButton.reset();
@@ -279,6 +322,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 star3.reset();
                 touching = false;
                 popupWindow.dismiss();
+                score = 1000;
                 starCount = 0;
             }
         });
