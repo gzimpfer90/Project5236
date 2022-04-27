@@ -72,8 +72,9 @@ public class HighScoresFragment extends Fragment {
                     }
                     level_list.add(
                             getString(R.string.level) + " " + ds.getKey().substring(5) + ": "
-                                    + getString(R.string.completed) + ", "
-                                    + "Score: " + hashMap.get("score").toString() + ", "
+                                    + completeString + ", "
+                                    + getString(R.string.score) + " " +
+                                    hashMap.get("score").toString() + ", "
                                     + getString(R.string.star) + ": "
                                     + hashMap.get("stars").toString());
                 }

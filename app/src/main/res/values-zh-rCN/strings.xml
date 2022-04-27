@@ -23,6 +23,7 @@
     <string name="level">级别</string>
     <string name="completed">已完成</string>
     <string name="star">收集的星星</string>
+    <string name="score">分数</string>
 
     <string name="general_header">通用</string>
     <string name="language_title">语言</string>

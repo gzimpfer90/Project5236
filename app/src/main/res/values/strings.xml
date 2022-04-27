@@ -22,7 +22,8 @@
     <string name="congrats">Congratulation! You\'ve completed this level!</string>
     <string name="level">Level</string>
     <string name="completed">Completed</string>
-    <string name="star">Star Collected</string>
+    <string name="star">Stars Collected</string>
+    <string name="score">Score</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
