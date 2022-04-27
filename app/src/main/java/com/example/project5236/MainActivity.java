@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private static final String TAG = "Testing: ";
-    public static String lang = "en";
+//    public static String lang = "en";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
-
-        Toast.makeText(this, lang, Toast.LENGTH_LONG).show();
+//        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+//
+//        Toast.makeText(this, lang, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "MainActivity on destroy occurred");
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        Locale localeToSwitchTo = new Locale(lang);
-        ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo);
-        super.attachBaseContext(localeUpdatedContext);
-    }
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        Locale localeToSwitchTo = new Locale(lang);
+//        ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo);
+//        super.attachBaseContext(localeUpdatedContext);
+//    }
 
 }

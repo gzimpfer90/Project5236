@@ -1,6 +1,11 @@
 package com.example.project5236;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +18,22 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.project5236.databinding.FragmentSecondBinding;
 import com.example.project5236.databinding.FragmentSettingBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Locale;
 
 public class SettingFragment extends Fragment {
 
     private FragmentSettingBinding binding;
+    FirebaseDatabase rootNode;
+    DatabaseReference levelsReference;
+    DatabaseReference nextReference;
+    private int deleteLevelVal;
+    private String deleteLevelName;
     private static final String TAG = "Testing: ";
 
     @Override
@@ -33,21 +50,32 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonEn.setOnClickListener(new View.OnClickListener() {
+        binding.buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.lang = "en";
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+                rootNode = FirebaseDatabase.getInstance();
+                levelsReference = rootNode.getReference("Levels");
+                nextReference = rootNode.getReference("NextLevel");
+                nextReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        deleteLevelVal = Integer.parseInt(snapshot.getValue().toString()) - 1;
+                        while (deleteLevelVal != 1) {
+                            deleteLevelName = "Level" + deleteLevelVal;
+                            levelsReference.child(deleteLevelName).removeValue();
+                            nextReference.setValue(deleteLevelVal);
+                            deleteLevelVal--;
+                        }
+                        String currentName = "Level1";
+                        LevelHelperClass completeUpdate = new LevelHelperClass(0,0);
+                        levelsReference.child(currentName).setValue(completeUpdate);
+                    }
 
-        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.lang = "zh";
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
