@@ -7,26 +7,36 @@
     tools:context=".SettingFragment">
 
 
-    <LinearLayout
-        android:id="@+id/button_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+<!--    <LinearLayout-->
+<!--        android:id="@+id/button_frame"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" >-->
 
-        <Button
-            android:id="@+id/button_en"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/english" />
+<!--        <Button-->
+<!--            android:id="@+id/button_en"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/english" />-->
 
-        <Button
-            android:id="@+id/button_zh"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/chinese" />
+<!--        <Button-->
+<!--            android:id="@+id/button_zh"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/chinese" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
+
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_back" />
 
     <Button
         android:id="@+id/button_back"
@@ -36,5 +46,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_frame" />
+        app:layout_constraintTop_toBottomOf="@id/button_reset" />
 </androidx.constraintlayout.widget.ConstraintLayout>

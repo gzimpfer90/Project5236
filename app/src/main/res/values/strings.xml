@@ -47,6 +47,7 @@
     <string name="language_title">Language</string>
     <string name="english">English</string>
     <string name="chinese">Chinese</string>
+    <string name="reset">Reset</string>
 
 
 </resources>
