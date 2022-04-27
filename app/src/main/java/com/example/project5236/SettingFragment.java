@@ -67,7 +67,7 @@ public class SettingFragment extends Fragment {
                             deleteLevelVal--;
                         }
                         String currentName = "Level1";
-                        LevelHelperClass completeUpdate = new LevelHelperClass(0,0);
+                        LevelHelperClass completeUpdate = new LevelHelperClass(0,0, 0);
                         levelsReference.child(currentName).setValue(completeUpdate);
                     }
 
