@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private String TAG = "Touch";
@@ -147,11 +149,34 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             levelsReference = rootNode.getReference("Levels");
             nextReference = rootNode.getReference("NextLevel");
 
-            nextReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            levelsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    HashMap<String, Long> hashMap;
                     String currentName = "Level1";
-                    LevelHelperClass completeUpdate = new LevelHelperClass(1,starCount, score);
+                    int currentScore = 0;
+                    int currentStars = 0;
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        hashMap = (HashMap<String, Long>) ds.getValue();
+                        if(ds.getKey().equals(currentName)) {
+                            currentScore = hashMap.get("score").intValue();
+                            currentStars = hashMap.get("stars").intValue();
+                        }
+                    }
+                    int helperScore;
+                    int helperStars;
+                    if(currentScore > score) {
+                        helperScore = currentScore;
+                    } else {
+                        helperScore = score;
+                    }
+                    if(currentStars > starCount) {
+                        helperStars = currentStars;
+                    } else {
+                        helperStars = starCount;
+                    }
+                    LevelHelperClass completeUpdate = new LevelHelperClass(1, helperStars,
+                            helperScore);
                     levelsReference.child(currentName).setValue(completeUpdate);
 
                 }
@@ -249,6 +274,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 topStar1.reset();
                 topStar2.reset();
                 topStar3.reset();
+                starCount = 0;
                 score = 1000;
                 touching = false;
             }
