@@ -63,9 +63,17 @@ public class HighScoresFragment extends Fragment {
                 HashMap<String, Long> hashMap;
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     hashMap = (HashMap<String, Long>) ds.getValue();
+                    Long completeValue = hashMap.get("complete");
+                    String completeString = "";
+                    if (completeValue > 0) {
+                        completeString = "Complete";
+                    } else {
+                        completeString = "Incomplete";
+                    }
                     level_list.add(
                             getString(R.string.level) + " " + ds.getKey().substring(5) + ": "
                                     + getString(R.string.completed) + ", "
+                                    + "Score: " + hashMap.get("score").toString() + ", "
                                     + getString(R.string.star) + ": "
                                     + hashMap.get("stars").toString());
                 }

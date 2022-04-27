@@ -151,7 +151,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String currentName = "Level1";
-                    LevelHelperClass completeUpdate = new LevelHelperClass(1,starCount);
+                    LevelHelperClass completeUpdate = new LevelHelperClass(1,starCount, score);
                     levelsReference.child(currentName).setValue(completeUpdate);
 
                 }

@@ -55,7 +55,7 @@ public class PlayCRUDFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         nextName = "Level" + snapshot.getValue().toString();
                         nextLevelVal = Integer.parseInt(snapshot.getValue().toString());
-                        LevelHelperClass nextLevelHelper = new LevelHelperClass( 0, 0);
+                        LevelHelperClass nextLevelHelper = new LevelHelperClass( 0, 0, 0);
                         nextReference.setValue(nextLevelVal + 1);
                         levelsReference.child(nextName).setValue(nextLevelHelper);
                     }
@@ -104,7 +104,7 @@ public class PlayCRUDFragment extends Fragment {
                         }
                         updateLevelVal = Integer.parseInt(snapshot.getValue().toString()) - 1;
                         updateLevelName = "Level" + updateLevelVal;
-                        LevelHelperClass updateHelper = new LevelHelperClass(0, updateStars);
+                        LevelHelperClass updateHelper = new LevelHelperClass(0, updateStars, 0);
                         levelsReference.child(updateLevelName).setValue(updateHelper);
                     }
 
